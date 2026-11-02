@@ -102,4 +102,3 @@ test('unexpected successful payload is an error and does not discard previous ra
   assert.deepEqual(results[0].leetcode, { status: 'error', username: 'new-handle', rating: null });
   assert.deepEqual(results[0].codeforces, { status: 'ok', username: 'cf', rating: 0 });
 });
-
