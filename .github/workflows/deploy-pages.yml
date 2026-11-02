@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'scripts/**'
       - 'public/**'
+      - 'site/**'
       - 'package.json'
       - 'package-lock.json'
       - 'vite.config.ts'
@@ -89,28 +90,36 @@ jobs:
         shell: pwsh
         run: npm run fetch:ratings
 
-      - name: Commit updated ratings
+      - name: Build static site
+        shell: pwsh
+        run: npm run build
+
+      - name: Prepare branch-published site
+        shell: pwsh
+        run: npm run sync:pages-root
+
+      - name: Verify branch-published site
+        shell: pwsh
+        run: npm run check:pages-root
+
+      - name: Commit updated ratings and published site
         shell: pwsh
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
         run: |
-          git add -- src/data/ratings.json
+          git add -A -- src/data/ratings.json index.html assets favicon.png icons.svg .nojekyll
           git diff --cached --quiet
           if ($LASTEXITCODE -eq 0) {
-            Write-Host 'Ratings are unchanged.'
+            Write-Host 'Ratings and published site are unchanged.'
             exit 0
           }
-          if ($LASTEXITCODE -ne 1) { throw 'Could not inspect ratings changes.' }
+          if ($LASTEXITCODE -ne 1) { throw 'Could not inspect published changes.' }
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore: refresh platform ratings [skip ci]'
-          if ($LASTEXITCODE -ne 0) { throw 'Could not commit ratings.' }
+          git commit -m 'chore: refresh ratings and published site [skip ci]'
+          if ($LASTEXITCODE -ne 0) { throw 'Could not commit published changes.' }
           git push origin "HEAD:refs/heads/$env:TARGET_BRANCH"
-          if ($LASTEXITCODE -ne 0) { throw 'Could not push ratings.' }
-
-      - name: Build static site
-        shell: pwsh
-        run: npm run build
+          if ($LASTEXITCODE -ne 0) { throw 'Could not push published changes.' }
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

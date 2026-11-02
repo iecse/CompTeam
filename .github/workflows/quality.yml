@@ -6,6 +6,7 @@ on:
       - 'src/**'
       - 'scripts/**'
       - 'public/**'
+      - 'site/**'
       - 'package.json'
       - 'package-lock.json'
       - 'vite.config.ts'
@@ -23,6 +24,7 @@ on:
       - 'src/**'
       - 'scripts/**'
       - 'public/**'
+      - 'site/**'
       - 'package.json'
       - 'package-lock.json'
       - 'vite.config.ts'
@@ -82,3 +84,7 @@ jobs:
       - name: Build static site
         shell: pwsh
         run: npm run build
+
+      - name: Verify branch-published site
+        shell: pwsh
+        run: npm run check:pages-root
