@@ -7,7 +7,8 @@ const built = fs.readFileSync(path.join(root, 'dist', 'index.html'), 'utf8');
 const published = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeamDemo';
 
-if (built !== published || published.includes('src/main.tsx')) {
+const normalizeLineEndings = text => text.replace(/\r\n/g, '\n');
+if (normalizeLineEndings(built) !== normalizeLineEndings(published) || published.includes('src/main.tsx')) {
   throw new Error('The repository root does not contain the current compiled Vite page. Run npm run build and npm run sync:pages-root.');
 }
 
