@@ -68,6 +68,11 @@ jobs:
         shell: pwsh
         run: npm run lint:html
 
+      - name: Test rating providers
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: npm run test:ratings
+
       - name: Validate data schemas
         shell: pwsh
         run: npm run validate:data
