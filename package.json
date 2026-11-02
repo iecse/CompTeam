@@ -11,6 +11,7 @@
     "lint:html": "htmlhint index.html",
     "preview": "vite preview",
     "fetch:ratings": "node scripts/refresh-ratings.mjs",
+    "test:ratings": "node --test scripts/refresh-ratings.test.mjs",
     "check:deprecated": "node scripts/check-deprecated-dependencies.mjs",
     "validate:data": "node scripts/validate-data.mjs"
   },

@@ -2,11 +2,11 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => {
-  const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'IECSECompTeam'
+export default defineConfig(() => {
+  const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeamDemo'
 
   return {
-    base: command === 'serve' ? '/IECSECompTeam/' : `/${repositoryName}/`,
+    base: `/${repositoryName}/`,
     plugins: [react()],
   }
 })

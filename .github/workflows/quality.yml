@@ -75,10 +75,9 @@ jobs:
         shell: pwsh
         run: npm run validate:data
 
-      - name: Fetch updated ratings on push
-        if: github.event_name == 'push'
+      - name: Test rating providers
         shell: pwsh
-        run: npm run fetch:ratings
+        run: npm run test:ratings
 
       - name: Build static site
         shell: pwsh
