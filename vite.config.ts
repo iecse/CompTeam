@@ -6,7 +6,13 @@ export default defineConfig(() => {
   const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeamDemo'
 
   return {
+    root: 'site',
     base: `/${repositoryName}/`,
+    publicDir: '../public',
+    build: {
+      outDir: '../dist',
+      emptyOutDir: true,
+    },
     plugins: [react()],
   }
 })

@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "oxlint --deny-warnings",
+    "sync:pages-root": "node scripts/sync-pages-root.mjs",
+    "check:pages-root": "node scripts/check-pages-root.mjs",
+    "lint": "oxlint --deny-warnings --ignore-pattern assets/**",
     "lint:css": "stylelint src/styles.css",
-    "lint:html": "htmlhint index.html",
+    "lint:html": "htmlhint index.html site/index.html",
     "preview": "vite preview",
     "fetch:ratings": "node scripts/refresh-ratings.mjs",
     "test:ratings": "node --test scripts/refresh-ratings.test.mjs",
