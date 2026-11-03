@@ -102,6 +102,28 @@ jobs:
         shell: pwsh
         run: npm run check:pages-root
 
+      - name: Setup Pages
+        if: github.event_name != 'push'
+        uses: actions/configure-pages@v5
+
+      - name: Upload built site
+        if: github.event_name != 'push'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'push'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify published site
+        if: github.event_name != 'push'
+        shell: pwsh
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: node scripts/verify-deployed-site.mjs "$env:PAGES_URL"
+
       - name: Commit updated ratings and published site
         shell: pwsh
         env:
@@ -120,21 +142,3 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Could not commit published changes.' }
           git push origin "HEAD:refs/heads/$env:TARGET_BRANCH"
           if ($LASTEXITCODE -ne 0) { throw 'Could not push published changes.' }
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload built site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Verify published site
-        shell: pwsh
-        env:
-          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
-        run: node scripts/verify-deployed-site.mjs "$env:PAGES_URL"
