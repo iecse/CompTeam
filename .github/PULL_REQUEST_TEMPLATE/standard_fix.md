@@ -3,7 +3,6 @@
 ## Type of Change
 
 - [ ] New feature
-- [ ] Bug fix
 - [ ] Refactoring (no functional changes)
 - [ ] Documentation update
 - [ ] Infrastructure / CI/CD
