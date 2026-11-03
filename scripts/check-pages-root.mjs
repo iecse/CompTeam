@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const built = fs.readFileSync(path.join(root, 'dist', 'index.html'), 'utf8');
 const published = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeamDemo';
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeam';
 
 if (built.includes('src/main.tsx') || published.includes('src/main.tsx')) {
   throw new Error('The repository root still contains a raw Vite source entry.');

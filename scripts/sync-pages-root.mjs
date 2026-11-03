@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const assets = path.join(root, 'assets');
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeamDemo';
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeam';
 const builtHtml = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 
 if (builtHtml.includes('src/main.tsx') || !builtHtml.includes(`/${repositoryName}/assets/`)) {
