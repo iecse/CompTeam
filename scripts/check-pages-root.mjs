@@ -3,9 +3,20 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const built = fs.readFileSync(path.join(root, 'dist', 'index.html'), 'utf8');
-const published = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/').pop() ?? 'CompTeam';
+const distHtml = path.join(root, 'dist', 'index.html');
+const publishedHtml = path.join(root, 'index.html');
+
+if (!fs.existsSync(distHtml)) {
+  throw new Error('Build output missing at dist/index.html. Run "npm run build" first.');
+}
+if (!fs.existsSync(publishedHtml)) {
+  throw new Error('Published index.html missing at repository root.');
+}
+
+const built = fs.readFileSync(distHtml, 'utf8');
+const published = fs.readFileSync(publishedHtml, 'utf8');
+const repositoryName =
+  process.env.GITHUB_REPOSITORY?.trim().replace(/\/+$/, '').replace(/\.git$/, '').split('/').pop() || 'CompTeam';
 
 if (built.includes('src/main.tsx') || published.includes('src/main.tsx')) {
   throw new Error('The repository root still contains a raw Vite source entry.');
@@ -29,7 +40,8 @@ if (!publishedUrls.some(url => url.includes('/assets/') && url.endsWith('.js')) 
 }
 
 for (const url of publishedUrls) {
-  const file = path.join(root, url.slice(repositoryName.length + 2));
+  const cleanUrl = url.split(/[?#]/)[0];
+  const file = path.join(root, cleanUrl.slice(repositoryName.length + 2));
   if (!fs.existsSync(file)) throw new Error(`Published asset is missing: ${url}`);
 }
 
