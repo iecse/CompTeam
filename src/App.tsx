@@ -20,12 +20,12 @@ function Navigation({ currentView, setView }: { currentView: ViewState, setView:
   return (
     <nav className="nav-panel">
       <div className="nav-brand">
-        <h1>CompTeam</h1>
-        <p>Competitive Programming</p>
+        <h1>IECSE</h1>
+        <p>Official Competitive Programming Team</p>
       </div>
       <ul className="nav-links">
         <li>
-          <button 
+          <button
             aria-current={currentView === 'online' ? 'page' : undefined}
             onClick={() => setView('online')}
           >
@@ -33,7 +33,7 @@ function Navigation({ currentView, setView }: { currentView: ViewState, setView:
           </button>
         </li>
         <li>
-          <button 
+          <button
             aria-current={currentView === 'offline' ? 'page' : undefined}
             onClick={() => setView('offline')}
           >
@@ -67,7 +67,7 @@ function RatingCell({ ratingObj, platformName }: { ratingObj: RatingValue, platf
 
 function OnlineStats() {
   const updatedAt = ratingsData.length > 0 && ratingsData[0].updatedAt ? new Date(ratingsData[0].updatedAt).toLocaleString() : 'Never';
-  
+
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [showRetired, setShowRetired] = useState(true);
@@ -126,7 +126,7 @@ function OnlineStats() {
           </div>
         </div>
       </header>
-      
+
       <div className="table-wrapper">
         <table>
           <caption>Team member platform ratings</caption>
@@ -208,7 +208,7 @@ function OfflineStats() {
           {sortedEvents.map((ev, i) => (
             <article key={i} className="event-card">
               <div className="event-meta">
-                <span>{new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric'})}</span>
+                <span>{new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
               <h3 className="event-title">{ev.event}</h3>
               <div className="event-position">{ev.position}</div>
