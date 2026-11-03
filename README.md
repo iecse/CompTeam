@@ -1,5 +1,7 @@
 # IECSE Competitive Programming Team
 
-This is the repository for the IECSE Competitive Programming Team.
-pioneered by Roonil03 (estd. 2025)
-Updated: 2026
+The official repository of the **IECSE Competitive Programming Team**.
+
+Pioneered by [Roonil03](https://github.com/Roonil03) · Established 2025
+
+**Last Updated:** 2026
