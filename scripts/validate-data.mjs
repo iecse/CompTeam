@@ -57,7 +57,7 @@ function validateOfflineEvents() {
   }
   
   for (const e of data) {
-    if (!e.date || !e.event || !e.position || !e.eventDescription) {
+    if (!e.date || !e.event || !e.position || !e.eventDescription || typeof e.location !== 'string' || !e.location.trim()) {
       console.error(`Invalid event record: ${JSON.stringify(e)}`);
       process.exit(1);
     }
