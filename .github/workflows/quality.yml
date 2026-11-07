@@ -77,6 +77,14 @@ jobs:
         shell: pwsh
         run: npm run validate:data
 
+      - name: Check offline event ordering
+        shell: pwsh
+        run: npm run check:offline-events-order
+
+      - name: Test offline event sorter
+        shell: pwsh
+        run: npm run test:offline-events
+
       - name: Test rating providers
         shell: pwsh
         run: npm run test:ratings

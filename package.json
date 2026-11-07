@@ -15,7 +15,10 @@
     "fetch:ratings": "node scripts/refresh-ratings.mjs",
     "test:ratings": "node --test scripts/refresh-ratings.test.mjs",
     "check:deprecated": "node scripts/check-deprecated-dependencies.mjs",
-    "validate:data": "node scripts/validate-data.mjs"
+    "validate:data": "node scripts/validate-data.mjs",
+    "sort:offline-events": "node scripts/sort-offline-events.mjs",
+    "check:offline-events-order": "node scripts/sort-offline-events.mjs --check",
+    "test:offline-events": "node --test scripts/sort-offline-events.test.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
