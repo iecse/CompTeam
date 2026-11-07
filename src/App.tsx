@@ -65,8 +65,24 @@ function RatingCell({ ratingObj, platformName }: { ratingObj: RatingValue, platf
   );
 }
 
+function formatUpdatedAt(value: string) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(new Date(value));
+  const getPart = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? '';
+
+  return `${getPart('day')}/${getPart('month')}/${getPart('year')} ${getPart('hour')}:${getPart('minute')}:${getPart('second')} IST`;
+}
+
 function OnlineStats() {
-  const updatedAt = ratingsData.length > 0 && ratingsData[0].updatedAt ? new Date(ratingsData[0].updatedAt).toLocaleString() : 'Never';
+  const updatedAt = ratingsData.length > 0 && ratingsData[0].updatedAt ? formatUpdatedAt(ratingsData[0].updatedAt) : 'Never';
 
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
@@ -209,6 +225,7 @@ function OfflineStats() {
             <article key={i} className="event-card">
               <div className="event-meta">
                 <span>{new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span className="event-location">Location: {ev.location || 'Location not specified'}</span>
               </div>
               <h3 className="event-title">{ev.event}</h3>
               <div className="event-position">{ev.position}</div>
